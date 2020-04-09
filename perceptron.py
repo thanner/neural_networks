@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 # =======
 # Step 0
@@ -95,10 +96,11 @@ def update_bias(bias, learning_rate, current_target):
 # Execution
 # ======
 
-batch = np.array([[1, 1], [1, 0], [0, 1], [0, 0]])
-target = np.array([1, -1, -1, -1])
+dataframe = pd.read_csv("resources/and.csv")
 
-# Execução
+batch = dataframe.iloc[:, :2].to_numpy()
+target = dataframe.iloc[:, 2:].to_numpy()
+
 learn(batch, target, weights, bias, learning_rate)
 
 # Improvements
