@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import utils
 
 # =======
 # Step 0
@@ -15,7 +16,7 @@ bias = 0
 learning_rate = 1
 
 
-def learn(batch, target, weights, bias, learning_rate):
+def train(batch, target, weights, bias, learning_rate):
     epoch_count = 1
 
     # =======
@@ -44,10 +45,10 @@ def learn(batch, target, weights, bias, learning_rate):
             # =======
             # Step 4 - Compute response of output unit
             # =======
-            input = compute_input(bias, weights, input_units)
+            input = utils.compute_net_input(bias, weights, input_units)
             print("\t\tNET: ", input)
 
-            output = compute_output(input)
+            output = apply_activation_function(input)
             print("\t\tOUT: ", output)
 
             # =======
@@ -70,11 +71,7 @@ def learn(batch, target, weights, bias, learning_rate):
             stop_condition = True
 
 
-def compute_input(bias, weights, input_units):
-    return bias + np.sum(weights * input_units)
-
-
-def compute_output(input):
+def apply_activation_function(input):
     theta = 0.2
     if input > theta:
         return 1
@@ -101,8 +98,4 @@ dataframe = pd.read_csv("resources/and.csv")
 batch = dataframe.iloc[:, :2].to_numpy()
 target = dataframe.iloc[:, 2:].to_numpy()
 
-learn(batch, target, weights, bias, learning_rate)
-
-# Improvements
-# binary vs bipolar
-# set theta
+train(batch, target, weights, bias, learning_rate)
