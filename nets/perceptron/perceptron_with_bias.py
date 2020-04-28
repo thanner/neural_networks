@@ -1,10 +1,10 @@
 import numpy as np
 
-import utils
-from NeuralNetworkGraph import NeuralNetworkGraph
+from nets.utils import utils
+from nets.utils.others.neural_network_graph import NeuralNetworkGraph
 
 
-class Perceptron:
+class PerceptronWithBias:
 
     def __init__(self, training_patterns, targets, bias, weights, theta=0, learning_rate=0.1):
         self.training_patterns = training_patterns
@@ -44,7 +44,7 @@ class Perceptron:
                 # =======
                 # Step 4 - Compute response of output unit
                 # =======
-                input = utils.compute_net_input(self.bias, self.weights, input_units)
+                input = utils.compute_net_input_with_bias(self.bias, self.weights, input_units)
                 print("\t\tNET: ", input)
 
                 output = self.apply_bipolar_activation_function(input)

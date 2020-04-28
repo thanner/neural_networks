@@ -1,7 +1,7 @@
 import numpy as np
 
-import utils
-from NeuralNetworkGraph import NeuralNetworkGraph
+from nets.utils import utils
+from nets.utils.others.neural_network_graph import NeuralNetworkGraph
 
 
 class Adaline:
@@ -43,7 +43,7 @@ class Adaline:
                 # =======
                 # Step 4 - Compute response of output unit
                 # =======
-                output = utils.compute_net_input_to_output(self.weights, input_units)
+                output = utils.compute_net_input(self.weights, input_units)
                 print("\t\tNET: ", output)
 
                 # =======
