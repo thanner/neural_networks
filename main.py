@@ -103,8 +103,18 @@ training_patterns = dataframe.iloc[:, :3].to_numpy()
 # Set targets
 targets = dataframe.iloc[:, 3:].to_numpy().flatten()
 
-# Set learning rate
-learning_rate = 0.02
+learning_rate = 0.2
 
-mlp = MultilayerPerceptron(training_patterns, targets, [2, 4, 1], learning_rate)
+error_tolerance = 0.05
+
+weights_input_hidden = np.array([
+    [-0.3378, 0.1970, 0.3099],
+    [0.2771, 0.3191, 0.1904],
+    [0.2859, -0.1448, -0.0347],
+    [-0.3329, 0.3594, -0.4861]
+])
+weights_hidden_output = np.array([[-0.1401, 0.4919, -0.2913, -0.3979, 0.3581]])
+weights_list = [weights_input_hidden, weights_hidden_output]
+
+mlp = MultilayerPerceptron(training_patterns, targets, [2, 4, 1], learning_rate, error_tolerance, weights_list)
 mlp.train()
