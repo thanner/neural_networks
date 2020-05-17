@@ -36,8 +36,8 @@ def calculate_line_values(bias, weight_1, weight_2, training_patterns_without_bi
     return pd.DataFrame({'x': x1, 'y': x2})
 
 
-def get_weight_layer_without_bias(weights_matrix_list, layer):
-    return weights_matrix_list[layer][:, 1:]
+def get_weights_layer_without_bias(weights_layer):
+    return weights_layer[:, 1:]
 
 
 def mean_squared_error(y_true, y_pred):

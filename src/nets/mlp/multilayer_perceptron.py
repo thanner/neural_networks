@@ -71,7 +71,7 @@ class MultilayerPerceptron:
 
         # 2 - Calcular variacao pesos entre input_layer e hidden_layer
         error_correction_weight_adjustment_input = error_correction_weight_adjustment * \
-                                                   utils.get_weight_layer_without_bias(self.weights_matrix_list, 1)[0]
+                                                   utils.get_weights_layer_without_bias(self.weights_matrix_list[1])[0]
         error_correction_weight_adjustment = error_correction_weight_adjustment_input * self.activation_function.apply_derivate(
             self.input_net[1])
         weight_variation_per_error_correction = list()
