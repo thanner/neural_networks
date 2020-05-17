@@ -42,4 +42,3 @@ def get_weight_layer_without_bias(weights_matrix_list, layer):
 
 def mean_squared_error(y_true, y_pred):
     return np.square(np.subtract(y_true, y_pred)).mean()
-

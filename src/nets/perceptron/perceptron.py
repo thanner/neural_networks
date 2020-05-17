@@ -1,7 +1,7 @@
 import numpy as np
 
-from nets.utils import utils
-from nets.utils.others.neural_network_graph import NeuralNetworkGraph
+from src.nets.utils import utils
+from src.nets.utils.others.neural_network_graph import NeuralNetworkGraph
 
 
 class Perceptron:

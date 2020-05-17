@@ -1,9 +1,4 @@
-import numpy as np
-import pandas as pd
-
-from nets.mlp.multilayer_perceptron import MultilayerPerceptron
-from nets.rnn.recurrent_neural_network import RecurrentNeuralNetwork
-from nets.utils import utils
+from src.nets.rnn.recurrent_neural_network import RecurrentNeuralNetwork
 
 # #############
 # # Perceptron With Bias - Ver 67, 68
@@ -32,7 +27,7 @@ from nets.utils import utils
 # perceptron = PerceptronWithBias(training_patterns, targets, bias, weights, theta, learning_rate)
 # perceptron.train()
 # perceptron.print_graph()
-#
+
 # ###########
 # # Multilayer Perceptron
 # ###########
@@ -94,59 +89,39 @@ from nets.utils import utils
 ###########
 # Multilayer Perceptron
 ###########
-
-"""
-dataframe = pd.read_csv("resources/xor_bipolar_input_bipolar_target.csv")
-utils.insert_bias_dataframe(dataframe)
-
-# Set training patterns
-training_patterns = dataframe.iloc[:, :3].to_numpy()
-
-# Set targets
-targets = dataframe.iloc[:, 3:].to_numpy().flatten()
-
-learning_rate = 0.2
-
-error_tolerance = 0.05
-
-weights_input_hidden = np.array([
-    [-0.3378, 0.1970, 0.3099],
-    [0.2771, 0.3191, 0.1904],
-    [0.2859, -0.1448, -0.0347],
-    [-0.3329, 0.3594, -0.4861]
-])
-weights_hidden_output = np.array([[-0.1401, 0.4919, -0.2913, -0.3979, 0.3581]])
-weights_list = [weights_input_hidden, weights_hidden_output]
-
-mlp = MultilayerPerceptron(training_patterns, targets, [2, 4, 1], learning_rate, error_tolerance, None)
-mlp.train()
-"""
+#
+# dataframe = pd.read_csv("resources/xor_bipolar_input_bipolar_target.csv")
+# utils.insert_bias_dataframe(dataframe)
+#
+# # Set training patterns
+# training_patterns = dataframe.iloc[:, :3].to_numpy()
+#
+# # Set targets
+# targets = dataframe.iloc[:, 3:].to_numpy().flatten()
+#
+# learning_rate = 0.2
+#
+# error_tolerance = 0.05
+#
+# weights_input_hidden = np.array([
+#     [-0.3378, 0.1970, 0.3099],
+#     [0.2771, 0.3191, 0.1904],
+#     [0.2859, -0.1448, -0.0347],
+#     [-0.3329, 0.3594, -0.4861]
+# ])
+# weights_hidden_output = np.array([[-0.1401, 0.4919, -0.2913, -0.3979, 0.3581]])
+# weights_list = [weights_input_hidden, weights_hidden_output]
+#
+# mlp = MultilayerPerceptron(training_patterns, targets, [2, 4, 1], learning_rate, error_tolerance, None)
+# mlp.train()
 
 ###########
 # Recurrent Neural Network
 ###########
 
-dataframe = pd.read_csv("resources/xor_bipolar_input_bipolar_target.csv")
-utils.insert_bias_dataframe(dataframe)
-
-# Set training patterns
-training_patterns = dataframe.iloc[:, :3].to_numpy()
-
-# Set targets
-targets = dataframe.iloc[:, 3:].to_numpy().flatten()
-
-learning_rate = 0.2
+learning_rate = 0.0125
 
 error_tolerance = 0.05
-
-weights_input_hidden = np.array([
-    [-0.3378, 0.1970, 0.3099],
-    [0.2771, 0.3191, 0.1904],
-    [0.2859, -0.1448, -0.0347],
-    [-0.3329, 0.3594, -0.4861]
-])
-weights_hidden_output = np.array([[-0.1401, 0.4919, -0.2913, -0.3979, 0.3581]])
-weights_list = [weights_input_hidden, weights_hidden_output]
 
 grammar = {
     'B': [1, 0, 0, 0, 0, 0],
@@ -160,5 +135,6 @@ grammar = {
 
 stop_condition = 'E'
 
-rnn = RecurrentNeuralNetwork(training_patterns, targets, [6, 3, 6], learning_rate=learning_rate, error_tolerance=error_tolerance, grammar=grammar, stop_condition_element=stop_condition)
-rnn.train(['B', 'T', 'X', 'S', 'E'])
+rnn = RecurrentNeuralNetwork([6, 3, 6], learning_rate=learning_rate, error_tolerance=error_tolerance, grammar=grammar,
+                             stop_condition_element=stop_condition)
+rnn.train([['B', 'T', 'X', 'S', 'E']])

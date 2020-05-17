@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class BipolarSigmoid:
 
     def apply_activation_function(self, value):
