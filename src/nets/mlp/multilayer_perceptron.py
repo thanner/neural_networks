@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.nets.activation_function.bipolar_sigmoid import BipolarSigmoid
+from src.nets.activationfunction.bipolar_sigmoid import BipolarSigmoid
 from src.nets.utils import utils
 
 

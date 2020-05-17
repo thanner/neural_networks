@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.nets.activation_function.binary_sigmoid import BinarySigmoid
+from src.nets.activationfunction.binary_sigmoid import BinarySigmoid
 from src.nets.utils import utils
 
 
