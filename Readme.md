@@ -8,7 +8,7 @@ In this project you will find:
 
 ## Get Started
 
-Install Python v3.7
+Install Python v3.8
 
 ### Installing Dependencies
 
