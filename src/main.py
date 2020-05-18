@@ -1,4 +1,8 @@
 from src.nets.rnn.recurrent_neural_network import RecurrentNeuralNetwork
+import json
+import os
+
+import src.nets.exemplo.generate_string as gs
 
 # #############
 # # Perceptron With Bias - Ver 67, 68
@@ -137,4 +141,17 @@ stop_condition = 'E'
 
 rnn = RecurrentNeuralNetwork([6, 3, 6], learning_rate=learning_rate, error_tolerance=error_tolerance, grammar=grammar,
                              stop_condition_element=stop_condition)
-rnn.train([['B', 'T', 'X', 'S', 'E']])
+
+#string_amount = 6000
+#string_list = [gs.generate_string()[2].__add__(['E']) for i in range(string_amount)]
+
+folder_name = os.path.dirname(os.path.abspath(__file__))
+filename = os.path.join(folder_name, 'nets/exemplo/grammar.json')
+with open(filename) as json_file:
+    string_list = json.load(json_file)
+
+rnn.train(string_list)
+
+# TODO: MSE está errado (pq será?)
+print(string_list)
+print(rnn.mean_squared_error_list)

@@ -2,7 +2,7 @@ import numpy as np
 
 from src.nets.activationfunction.binary_sigmoid import BinarySigmoid
 from src.nets.utils import utils
-
+#from src.nets.exemplo.plotting import plot_error as pt
 
 class RecurrentNeuralNetwork:
 
@@ -18,6 +18,7 @@ class RecurrentNeuralNetwork:
         self.layers_output = list()
         self.dict_grammar = grammar
         self.stop_condition_element = stop_condition_element
+        self.mean_squared_error_list = list()
 
     def create_weights_matrix_list(self):
         weights_matrix_list = list()
@@ -39,6 +40,7 @@ class RecurrentNeuralNetwork:
 
             context_layer = [0.5] * self.neurons_per_layer[1]
             stop_condition = False
+            total_squared_error_string = list()
             while not stop_condition:
                 current_symbol_encoded = symbol_encoded_list[symbol_id]
                 symbol_id += 1
@@ -52,10 +54,16 @@ class RecurrentNeuralNetwork:
                 weight_correction = self.backpropagation(output, target_symbol_encoded)
                 self.update_weights(weight_correction)
 
+                total_squared_error_symbol = self.calculate_total_squared_error(output, target_symbol_encoded)
+                #print('Total Squared Error Symbol: ', total_squared_error_symbol)
+                total_squared_error_string.append(total_squared_error_symbol)
+
                 if self.stop_condition_element == target_symbol:
                     stop_condition = True
                 else:
                     context_layer = np.copy(self.get_output_last_hidden_layer())
+
+            self.mean_squared_error_list.append(np.mean(total_squared_error_string))
 
     def feedforward(self, input_units):
         self.layers_input.append(utils.remove_bias_layer(input_units))
@@ -106,11 +114,14 @@ class RecurrentNeuralNetwork:
         for i, weights in enumerate(self.weights_matrix_list):
             self.weights_matrix_list[i] = weights + weight_correction[i]
 
-    def calculate_total_squared_error(self, training_pair_errors):
-        return np.sum(training_pair_errors)
+    def calculate_total_squared_error(self, output, target):
+        return np.sum((output - target) ** 2)
 
     def get_letter(self, vector):
         return [x for x in self.dict_grammar if self.dict_grammar[x] == vector]
 
     def get_encoder(self, letter):
         return self.dict_grammar.get(letter)
+
+    #def plot(self):
+    #    pt.plot_error(self.mean_squared_error_list, "Test")
