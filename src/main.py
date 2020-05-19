@@ -1,8 +1,7 @@
-from src.nets.rnn.recurrent_neural_network import RecurrentNeuralNetwork
 import json
 import os
 
-import src.nets.exemplo.generate_string as gs
+from src.nets.rnn.recurrent_neural_network import RecurrentNeuralNetwork
 
 # #############
 # # Perceptron With Bias - Ver 67, 68
@@ -142,16 +141,34 @@ stop_condition = 'E'
 rnn = RecurrentNeuralNetwork([6, 3, 6], learning_rate=learning_rate, error_tolerance=error_tolerance, grammar=grammar,
                              stop_condition_element=stop_condition)
 
-#string_amount = 6000
-#string_list = [gs.generate_string()[2].__add__(['E']) for i in range(string_amount)]
+# string_amount = 6000
+# string_list = [gs.generate_string()[2].__add__(['E']) for i in range(string_amount)]
 
 folder_name = os.path.dirname(os.path.abspath(__file__))
 filename = os.path.join(folder_name, 'nets/exemplo/grammar.json')
 with open(filename) as json_file:
     string_list = json.load(json_file)
 
+# Treinando os mesmos pesos
 rnn.train(string_list)
 
-# TODO: MSE está errado (pq será?)
-print(string_list)
-print(rnn.mean_squared_error_list)
+# Usando os mesmos pesos
+# weights_z_v = [
+#     [-0.70241423, 2.90520929, -1.46287391, -0.39782865, -0.65885591, -2.14346943, -0.39650197, -0.11675449,
+#      1.05002266, 1.2385648, ],
+#     [-0.77968576, -3.23834314, 5.74947794, -2.84805611, 0.51617198, -2.21781518, 2.1550897, -2.90109297,
+#      -0.47355646, 6.69954713],
+#     [-0.9549995, 1.95759764, 1.05795331, -2.41193727, -2.80322437, 3.61191549, -2.70926095, 2.34288057,
+#      -1.12546089, -0.88138996]
+# ]
+#
+# weights_y_w = [
+#     [-5.74661671, -3.8605457, 4.89642468, 4.00437399], [-3.36472465, -0.69471095, 4.07332745, -3.83618402],
+#     [-1.85311539, 0.80541688, -6.1195417, 2.0184946], [-0.0192946, 3.12163234, -4.75455344, -3.38343167],
+#     [2.79194852, -3.32606222, -4.18600693, -2.57267547], [-3.46751078, -0.89217647, 4.72746952, -3.48326156]
+# ]
+#
+# weights = [weights_z_v, weights_y_w]
+# rnn.weights_matrix_list = weights
+
+rnn.test([['B', 'T', 'X', 'S', 'E'], ['B', 'P', 'T', 'V', 'V', 'E']])
